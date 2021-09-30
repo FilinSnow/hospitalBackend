@@ -13,3 +13,25 @@ module.exports.getAllRecords = async (req, res) => {
         res.send({ data: result });
     }).catch(err => new Error(err));
 }
+
+module.exports.createNewRecord = async (req, res) => {
+    if (Object.keys(req.body).length == 0) {
+        return res.send('Not send data');
+    }
+    _.mapObject(req.body, (val, key) => {
+        if (val == '') {
+            return res.send('You have not entered data');
+        }
+    })
+    let token = req.headers.authorization;
+    token = token.split(' ')[1];
+    const decoded = jwt.verify(token, secret);
+    const obj = {
+        ...req.body,
+        userId: decoded.id
+    }
+    const record = new Record(obj);
+    record.save().then(r => {
+        res.send(r);
+    }).catch(err => new Error(err));
+}

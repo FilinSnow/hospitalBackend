@@ -6,6 +6,7 @@ const router = express.Router();
 
 const {
     getAllRecords,
+    createNewRecord
 } = require('../controllers/hospital.controller');
 
 const {
@@ -15,6 +16,7 @@ const {
 
 
 router.get('/getAllRecords', authMiddleWare, getAllRecords);
+router.post('/createNewRecord', authMiddleWare, createNewRecord);
 router.post('/registration', [
     check('username', 'User name should not have empty').notEmpty(),
     check('password', 'Pass should be more then 6').isLength({ min: 6 }),
