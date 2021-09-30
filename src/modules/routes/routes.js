@@ -17,6 +17,7 @@ const {
 
 router.get('/getAllRecords', authMiddleWare, getAllRecords);
 router.post('/createNewRecord', authMiddleWare, createNewRecord);
+router.put('/updateInfoRecord', authMiddleWare, updateInfoRecord);
 router.post('/registration', [
     check('username', 'User name should not have empty').notEmpty(),
     check('password', 'Pass should be more then 6').isLength({ min: 6 }),

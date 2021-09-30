@@ -35,3 +35,16 @@ module.exports.createNewRecord = async (req, res) => {
         res.send(r);
     }).catch(err => new Error(err));
 }
+
+module.exports.updateInfoRecord = async (req, res) => {
+    if (Object.keys(req.body).length == 0) {
+        return res.send('Not send data');
+    }
+    const { _id, name, doctor, date, complaint } = req.body;
+    Record.updateOne(
+        { _id },
+        { name, doctor, date, complaint },
+    ).then(r => {
+        res.send(r);
+    }).catch(err => new Error(err));
+}
