@@ -6,6 +6,7 @@ const router = express.Router();
 
 const {
     registrationUser,
+    loginUser
 } = require('../controllers/users.controller');
 
 
@@ -14,3 +15,4 @@ router.post('/registration', [
     check('username', 'User name should not have empty').notEmpty(),
     check('password', 'Pass should be more then 6').isLength({ min: 6 }),
 ], registrationUser);
+router.post('/login', loginUser);

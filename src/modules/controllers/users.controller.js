@@ -40,3 +40,28 @@ const generateAccessToken = (id) => {
     }
     return jwt.sign(payload, secret, {expiresIn: '24h'});
 }
+
+module.exports.loginUser = async (req, res) => {
+    try {
+        const {username, password} = req.body;
+        const user = await User.findOne({username});
+        if(!user) {
+            return res.status(400).send({message: `User ${username} not found`})
+        }
+        const validPassword = bcrypt.compareSync(password, user.password);
+        if(!validPassword) {
+            return res.status(400).send({message: `Wrong password`})
+        }
+        const token = generateAccessToken(user._id);
+        return res.json({
+            token,
+            user: {
+                id: user.id,
+                userName: user.username
+            }
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({ message: 'Login error' })
+    }
+}
