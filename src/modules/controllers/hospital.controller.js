@@ -9,7 +9,6 @@ module.exports.getAllRecords = async (req, res) => {
     const decoded = jwt.verify(token, secret);
     Record.find().then(result => {
         result = result.filter(elem => decoded.id === elem.userId);
-        console.log(result);
         res.send({ data: result });
     }).catch(err => new Error(err));
 }
@@ -46,5 +45,14 @@ module.exports.updateInfoRecord = async (req, res) => {
         { name, doctor, date, complaint },
     ).then(r => {
         res.send(r);
+    }).catch(err => new Error(err));
+}
+
+module.exports.deleteRecord = async (req, res) => {
+    Record.deleteOne({
+        _id: req.params.id
+    }
+    ).then(r => {
+        res.send("Record delete");
     }).catch(err => new Error(err));
 }
