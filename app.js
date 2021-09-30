@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./src/modules/routes/routes')
 
-
-
 const app = express();
 const port = 4000;
 
