@@ -1,3 +1,3 @@
 module.exports = {
-    secret: 'SECRET_ABVC_KEY'
-}
+  secret: 'SECRET_ABVC_KEY'
+};
