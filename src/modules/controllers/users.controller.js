@@ -57,7 +57,7 @@ module.exports.loginUser = async (req, res) => {
     return res.json({
       token,
       user: {
-        userName: userName
+        userName
       }
     });
   } catch (e) {

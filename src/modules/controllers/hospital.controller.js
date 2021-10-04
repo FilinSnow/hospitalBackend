@@ -7,7 +7,7 @@ module.exports.getAllRecords = async (req, res) => {
   let token = req.headers.authorization;
   token = token.split(' ')[1];
   const decoded = jwt.verify(token, secret);
-  const searchId = { userId: decoded.id }
+  const searchId = { userId: decoded.id };
   Record.find(searchId)
     .then(result => {
       res.send({ data: result });
@@ -15,7 +15,7 @@ module.exports.getAllRecords = async (req, res) => {
 };
 
 module.exports.createNewRecord = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
+  if (!Object.keys(req.body).length) {
     return res.send('Not send data');
   }
   _.mapObject(req.body, (val, key) => {
@@ -29,7 +29,7 @@ module.exports.createNewRecord = async (req, res) => {
   const obj = {
     ...req.body,
     userId: decoded.id
-  }
+  };
   const record = new Record(obj);
   record.save().then(r => {
     res.send(r);
@@ -37,7 +37,7 @@ module.exports.createNewRecord = async (req, res) => {
 };
 
 module.exports.updateInfoRecord = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
+  if (!Object.keys(req.body).length) {
     return res.send('Not send data');
   }
   _.mapObject(req.body, (val, key) => {
